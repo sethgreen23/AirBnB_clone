@@ -59,12 +59,6 @@ class FileStorage:
             dic_json = json.load(json_file)
             for key, kwrags in dic_json.items():
                 class_name, id = key.split(".")
-                # copy_class_name = class_name
-                # if copy_class_name == "BaseModel":
-                #     copy_class_name = "Base_Model"
-                # module_name = f"models.{copy_class_name.lower()}"
-                # module = importlib.import_module(module_name)
-                # class_obj = getattr(module, class_name)
                 obj = dict_classes[class_name](**kwrags)
                 deserialised_objs[key] = obj
             FileStorage.__objects = deserialised_objs

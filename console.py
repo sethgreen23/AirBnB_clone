@@ -100,12 +100,6 @@ class HBNBCommand(cmd.Cmd):
         if class_name not in HBNBCommand.class_names:
             print("** class doesn't exist **")
             return
-        # copy_class_name = class_name
-        # if copy_class_name == "BaseModel":
-        #     copy_class_name = "Base_Model"
-        # module_name = f"models.{copy_class_name.lower()}"
-        # module = importlib.import_module(module_name)
-        # class_obj = getattr(module, class_name)
         obj = dict_classes[class_name]()
         obj.save()
         print(obj.id)
