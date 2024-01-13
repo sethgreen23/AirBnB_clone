@@ -163,7 +163,6 @@ class HBNBCommand(cmd.Cmd):
                             arguments = arguments.strip("{}")
                             arguments_list = arguments.split(", ")
                             for i, arg_line in enumerate(arguments_list):
-                                print(arg_line)
                                 key_arg, value_arg = arg_line.split(": ")
                                 line = "{} {} {} {} {}".format(command,
                                                                class_name,
@@ -171,7 +170,6 @@ class HBNBCommand(cmd.Cmd):
                                                                key_arg,
                                                                value_arg)
                                 if i == len(arguments_list) - 1:
-                                    print(f'Last value {key_arg}: {value_arg}')
                                     return cmd.Cmd.onecmd(self, line)
                                 else:
                                     cmd.Cmd.onecmd(self, line)
