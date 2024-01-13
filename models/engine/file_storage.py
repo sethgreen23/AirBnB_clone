@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""File storage Module"""
+"""File storage Module that take care of the object management"""
 
 import json
 import os
@@ -30,8 +30,8 @@ class FileStorage:
         serialized_objs = {}
         for key, value in self.all().items():
             serialized_objs[key] = value.to_dict()
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as json_file:
-            json.dump(serialized_objs, json_file)
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as json_f:
+            json.dump(serialized_objs, json_f)
 
     def reload(self):
         """Deserialize the JSON file to __objects"""
@@ -55,8 +55,8 @@ class FileStorage:
         if not os.path.isfile(FileStorage.__file_path):
             return
         deserialised_objs = {}
-        with open(FileStorage.__file_path, "r", encoding="utf-8") as json_file:
-            dic_json = json.load(json_file)
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as json_f:
+            dic_json = json.load(json_f)
             for key, kwrags in dic_json.items():
                 class_name, id = key.split(".")
                 obj = dict_classes[class_name](**kwrags)
