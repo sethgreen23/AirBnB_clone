@@ -256,7 +256,8 @@ class HBNBCommand(cmd.Cmd):
                                     setattr(storage.all()[key], attr_name,
                                             str(attr_value))
                             except AttributeError:
-                                pass
+                                setattr(storage.all()[key], attr_name,
+                                        str(attr_value))
                             # print(f"attr:\t{attr}")
                         else:
                             setattr(storage.all()[key], attr_name,
