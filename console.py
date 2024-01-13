@@ -4,7 +4,6 @@
 
 import cmd
 import sys
-import importlib
 from models.base_model import BaseModel
 from models.user import User
 from models import storage
@@ -77,6 +76,23 @@ class HBNBCommand(cmd.Cmd):
         """Create new instance of BaseModel,
             save it and print the id
         """
+        from models.base_model import BaseModel
+        from models.amenity import Amenity
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
+        from models.state import State
+        from models.user import User
+
+        dict_classes = {
+            "BaseModel": BaseModel,
+            "Amenity": Amenity,
+            "City": City,
+            "Place": Place,
+            "Review": Review,
+            "State": State,
+            "User": User
+            }
         if not args:
             print("** class name missing **")
             return
@@ -84,13 +100,13 @@ class HBNBCommand(cmd.Cmd):
         if class_name not in HBNBCommand.class_names:
             print("** class doesn't exist **")
             return
-        copy_class_name = class_name
-        if copy_class_name == "BaseModel":
-            copy_class_name = "Base_Model"
-        module_name = f"models.{copy_class_name.lower()}"
-        module = importlib.import_module(module_name)
-        class_obj = getattr(module, class_name)
-        obj = class_obj()
+        # copy_class_name = class_name
+        # if copy_class_name == "BaseModel":
+        #     copy_class_name = "Base_Model"
+        # module_name = f"models.{copy_class_name.lower()}"
+        # module = importlib.import_module(module_name)
+        # class_obj = getattr(module, class_name)
+        obj = dict_classes[class_name]()
         obj.save()
         print(obj.id)
 
