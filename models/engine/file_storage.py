@@ -3,7 +3,6 @@
 
 import json
 import os
-import importlib
 
 
 class FileStorage:
@@ -37,6 +36,23 @@ class FileStorage:
 
     def reload(self):
         """Deserialize the JSON file to __objects"""
+        from models.base_model import BaseModel
+        from models.amenity import Amenity
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
+        from models.state import State
+        from models.user import User
+
+        dict_classes = {
+            "BaseModel": BaseModel,
+            "Amenity": Amenity,
+            "City": City,
+            "Place": Place,
+            "Review": Review,
+            "State": State,
+            "User": User
+            }
         if not os.path.isfile(FileStorage.__file_path):
             return
         deserialised_objs = {}
@@ -44,13 +60,12 @@ class FileStorage:
             dic_json = json.load(json_file)
             for key, kwrags in dic_json.items():
                 class_name, id = key.split(".")
-                # Next 3 lines are here for BaseModel
-                copy_class_name = class_name
-                if copy_class_name == "BaseModel":
-                    copy_class_name = "Base_Model"
-                module_name = f"models.{copy_class_name.lower()}"
-                module = importlib.import_module(module_name)
-                class_obj = getattr(module, class_name)
-                obj = class_obj(**kwrags)
+                # copy_class_name = class_name
+                # if copy_class_name == "BaseModel":
+                #     copy_class_name = "Base_Model"
+                # module_name = f"models.{copy_class_name.lower()}"
+                # module = importlib.import_module(module_name)
+                # class_obj = getattr(module, class_name)
+                obj = dict_classes[class_name](**kwrags)
                 deserialised_objs[key] = obj
             FileStorage.__objects = deserialised_objs
