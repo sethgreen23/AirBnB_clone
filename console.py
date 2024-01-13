@@ -163,6 +163,7 @@ updating attribute"""
         return cmd.Cmd.precmd(self, args)
 
     def onecmd(self, line):
+        """Onecmd function to treat custom comman writing"""
         args_list = line.split(".", maxsplit=1)
 
         if len(args_list) > 1:
