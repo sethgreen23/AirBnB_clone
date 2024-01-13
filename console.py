@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module for the console"""
 
+
 import cmd
 import sys
 import importlib
@@ -17,31 +18,11 @@ class HBNBCommand(cmd.Cmd):
     class_names = ["BaseModel", "User", "Place", "State", "City", "Amenity",
                    "Review"]
 
-    # def do_create(self, args):
-    #     """Create new instance of BaseModel, save it and print the id
-    #     """
-    #     # test for the right input
-    #     if not args:
-    #         print("** class name missing **")
-    #         return
-    #     if args not in HBNBCommand.class_names:
-    #         print("** class doesn't exist **")
-    #         return
-    #     # create new instance
-    #     obj = args()
-    #     # save the new instance
-    #     obj.save()
-
     def do_show(self, args):
-        """Print the string representaion of an instance based on the class
-name and i
         """
-        # testing the argument
-        # test is the name is missing
-        # test if the id is missing
-        # test if the class name doesnt exist
-        # test if the instance of the class name doesnt exist
-        # class_exist = False
+        Print the string representaion of an instance based on the class
+        name and id
+        """
         class_representation = ""
         go_on = HBNBCommand.validate_args(args)
         if go_on:
@@ -60,7 +41,6 @@ name and i
         """Prints all string representation of all instances based on
         or not the class name
         """
-        # test if class doesnt exist
         args_exist = True
         args_list = args.split(" ")
         if args_list[0] != "" and len(args_list) >= 1:
@@ -83,10 +63,6 @@ name and i
     def do_destroy(self, args):
         """Delete an instance base on the class name and id
         """
-        # test if the class name is missing
-        # test if the class name doesnt exist
-        # test if id is missing
-        # test if the id
         go_on = HBNBCommand.validate_args(args)
         if go_on:
             return
@@ -101,7 +77,6 @@ name and i
         """Create new instance of BaseModel,
             save it and print the id
         """
-        # test for the right input
         if not args:
             print("** class name missing **")
             return
@@ -115,24 +90,16 @@ name and i
         module_name = f"models.{copy_class_name.lower()}"
         module = importlib.import_module(module_name)
         class_obj = getattr(module, class_name)
-
-        # create new instance
         obj = class_obj()
-        # save the new instance
         obj.save()
         print(obj.id)
 
     def do_update(self, args):
         """Updates an instance based on the class name and id by adding or
-updating attribute"""
-        # check if class name is missing
-        # check if class name is a valid class name. eg. BaseModel
-        # check if id is missing
-        # check if an insntance of the class with the id provided exisits
-        # check if attribute name is missing
-        # check if the attribute value exists
+        updating attribute
+        """
         self.cmdName = "update"
-        # print(args)
+
         go_on = HBNBCommand.validate_args(args, self.cmdName)
         if go_on:
             return
@@ -156,8 +123,6 @@ updating attribute"""
     def precmd(self, args):
         """Prepare the command
         """
-        # We need to check if the console is interacting with a terminal in the
-        # preloop() method
         if not sys.stdin.isatty():
             print()
         return cmd.Cmd.precmd(self, args)
@@ -167,9 +132,6 @@ updating attribute"""
         args_list = line.split(".", maxsplit=1)
 
         if len(args_list) > 1:
-            # class_name = args_list[0]
-            # command = args_list[1].strip("()")
-            # line = f"{command} {class_name}"
             class_name, cmd_args = args_list
             if len(args_list) > 1:
                 cmd_args_list = cmd_args.split('(')
@@ -190,12 +152,9 @@ updating attribute"""
                         if (arguments.startswith("{")):
                             arguments = arguments.strip("{}")
                             arguments_list = arguments.split(", ")
-                            # print(arguments_list)
                             for i, arg_line in enumerate(arguments_list):
                                 print(arg_line)
                                 key_arg, value_arg = arg_line.split(": ")
-                                # line = f"{command} {class_name}
-                                # {id_arguments} {key_arg} {value_arg}"
                                 line = "{} {} {} {} {}".format(command,
                                                                class_name,
                                                                id_arguments,
@@ -208,8 +167,6 @@ updating attribute"""
                                     cmd.Cmd.onecmd(self, line)
                         else:
                             key_arg, value_arg = arguments.split(", ")
-                            # line = f"{command} {class_name}
-                            # {id_arguments} {key_arg} {value_arg}"
                             line = "{} {} {} {} {}".format(command,
                                                            class_name,
                                                            id_arguments,
@@ -219,15 +176,6 @@ updating attribute"""
 
     def do_count(self, line):
         """Do counting of instances"""
-        # check if class name exists
-        # if it does not exist, print '0' and return
-        # initialize counter
-        # loop through storage.all()
-        # extract the class_name
-        # compare the class_name with the argument from onecmd
-        #       if class_name found:
-        #       increment counter
-        # print(count)
         count = 0
         args_list = line.split()
         class_name = args_list[0]
@@ -239,12 +187,6 @@ updating attribute"""
             if class_name == c_name:
                 count += 1
         print(count)
-
-    # def preloop(self):
-    #     """checks if console is interacting with a terminal or not
-    #     """
-    #     if not sys.stdin.isatty():
-    #         print()
 
     @staticmethod
     def validate_args(args, cmdName=None):
@@ -284,14 +226,12 @@ updating attribute"""
         """Helper function for validate args in the case of update cmd"""
         if len(args_list) >= 3:
             if len(args_list) >= 4:
-                # add attribute or update its value if it exists
                 if type(args_list[3]) not in [str, int, float]:
                     return
                 else:
                     attr_name = args_list[2].strip("\"'")
                     attr_value = args_list[3].strip("\"'")
-                    # use ID to search for instance
-                    # for key, value in storage.all().items():
+
                     search_key = f"{args_list[0]}.{args_list[1]}"
 
                     for key, value in storage.all().items():
@@ -299,15 +239,12 @@ updating attribute"""
                             try:
                                 attr = getattr(storage.all()[key], attr_name)
                                 if HBNBCommand.is_integer(attr):
-                                    # print("____________Is INTEGER________")
                                     setattr(storage.all()[key], attr_name,
                                             int(attr_value))
                                 elif HBNBCommand.is_float(attr):
-                                    # print("____________Is FLOAT___________")
                                     setattr(storage.all()[key], attr_name,
                                             float(attr_value))
                                 else:
-                                    # print("____________Is STR___________")
                                     setattr(storage.all()[key], attr_name,
                                             str(attr_value))
                             except AttributeError:
@@ -330,7 +267,7 @@ updating attribute"""
     def is_integer(string):
         """Method to check if string is an integer"""
         s = str(string)
-        return s.isdigit()  # or (s[0] == '-' and s[1:].isdigit())
+        return s.isdigit()
 
     @staticmethod
     def is_float(s):
@@ -343,7 +280,4 @@ updating attribute"""
 
 
 if __name__ == '__main__':
-    try:
-        HBNBCommand().cmdloop()
-    except KeyboardInterrupt:
-        print()
+    HBNBCommand().cmdloop()

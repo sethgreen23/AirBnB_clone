@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Unittest for FileStorage Class"""
 
+
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
@@ -31,6 +32,7 @@ class TestFileStorageClass(unittest.TestCase):
         self.f2 = FileStorage()
 
     def tearDown(self):
+        """Teardown method for class FileManger"""
         del self.b1
         del self.b2
         del self.f1
