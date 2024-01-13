@@ -139,5 +139,6 @@ another"""
         updated_new = self.u1.updated_at
         self.assertNotEqual(update_old, updated_new)
 
+
 if __name__ == "__main__":
     unittest.main()
