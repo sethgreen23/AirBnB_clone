@@ -17,20 +17,20 @@ class HBNBCommand(cmd.Cmd):
     class_names = ["BaseModel", "User", "Place", "State", "City", "Amenity",
                    "Review"]
 
-    def do_create(self, args):
-        """Create new instance of BaseModel, save it and print the id
-        """
-        # test for the right input
-        if not args:
-            print("** class name missing **")
-            return
-        if args not in HBNBCommand.class_names:
-            print("** class doesn't exist **")
-            return
-        # create new instance
-        obj = args()
-        # save the new instance
-        obj.save()
+    # def do_create(self, args):
+    #     """Create new instance of BaseModel, save it and print the id
+    #     """
+    #     # test for the right input
+    #     if not args:
+    #         print("** class name missing **")
+    #         return
+    #     if args not in HBNBCommand.class_names:
+    #         print("** class doesn't exist **")
+    #         return
+    #     # create new instance
+    #     obj = args()
+    #     # save the new instance
+    #     obj.save()
 
     def do_show(self, args):
         """Print the string representaion of an instance based on the class
@@ -163,7 +163,7 @@ updating attribute"""
         return cmd.Cmd.precmd(self, args)
 
     def onecmd(self, line):
-        args_list = line.split(".")
+        args_list = line.split(".", maxsplit=1)
 
         if len(args_list) > 1:
             # class_name = args_list[0]
@@ -178,16 +178,12 @@ updating attribute"""
                     if command in ["all", "count"]:
                         line = f"{command} {class_name}"
                     elif command in ["show", "destroy"]:
+                        c_id = c_id.strip("\"")
                         line = f"{command} {class_name} {c_id}"
                     if command in ["update"] and len(c_id) > 1:
                         s_list = c_id.split(", ", maxsplit=1)
                         id_arguments, arguments = s_list
-                        # Task16 we need to strip the "cotes" from ids 
-                        # The ids needs to be surrounded by "cotes"
-                        # exemple User.update("38f22813-2753-4d42-b37c-57a17f1e4f88", {'first_name': "John", "age": 89})
-                        # this apply to show to
-                        # User.show("246c227a-d5c1-403d-9bc7-6a47bb9f0f68")
-                        # i taged the places with "Update TASK16" 
+
                         id_arguments = id_arguments.strip("\"")
                         arguments = arguments.strip("\"'")
                         if (arguments.startswith("{")):
@@ -197,17 +193,27 @@ updating attribute"""
                             for i, arg_line in enumerate(arguments_list):
                                 print(arg_line)
                                 key_arg, value_arg = arg_line.split(": ")
-                                print(key_arg)
-                                print(value_arg)
-                                line = f"{command} {class_name} {id_arguments} {key_arg} {value_arg}"
+                                # line = f"{command} {class_name}
+                                # {id_arguments} {key_arg} {value_arg}"
+                                line = "{} {} {} {} {}".format(command,
+                                                               class_name,
+                                                               id_arguments,
+                                                               key_arg,
+                                                               value_arg)
                                 if i == len(arguments_list) - 1:
+                                    print(f'Last value {key_arg}: {value_arg}')
                                     return cmd.Cmd.onecmd(self, line)
                                 else:
                                     cmd.Cmd.onecmd(self, line)
                         else:
-                            key_arg , value_arg = arguments.split(", ")
-                            line = f"{command} {class_name} {id_arguments} {key_arg} {value_arg}"
-                            
+                            key_arg, value_arg = arguments.split(", ")
+                            # line = f"{command} {class_name}
+                            # {id_arguments} {key_arg} {value_arg}"
+                            line = "{} {} {} {} {}".format(command,
+                                                           class_name,
+                                                           id_arguments,
+                                                           key_arg,
+                                                           value_arg)
         return cmd.Cmd.onecmd(self, line)
 
     def do_count(self, line):
@@ -292,45 +298,23 @@ updating attribute"""
                             try:
                                 attr = getattr(storage.all()[key], attr_name)
                                 if HBNBCommand.is_integer(attr):
-                                    # print("____________Is INTEGER___________")
-                                    setattr(storage.all()[key], attr_name, int(attr_value))
+                                    # print("____________Is INTEGER________")
+                                    setattr(storage.all()[key], attr_name,
+                                            int(attr_value))
                                 elif HBNBCommand.is_float(attr):
                                     # print("____________Is FLOAT___________")
-                                    setattr(storage.all()[key], attr_name, float(attr_value))
+                                    setattr(storage.all()[key], attr_name,
+                                            float(attr_value))
                                 else:
                                     # print("____________Is STR___________")
-                                    setattr(storage.all()[key], attr_name, str(attr_value))
+                                    setattr(storage.all()[key], attr_name,
+                                            str(attr_value))
                             except AttributeError:
                                 pass
                             # print(f"attr:\t{attr}")
                         else:
                             setattr(storage.all()[key], attr_name,
-                                        str(attr_value))
-                            # if hasattr(storage.all()[key], attr_name):
-                            #     attr_type = type(getattr(storage.all()[key],
-                            #                              attr_name)).__name__
-                                # print(f"attr:\t{attr}\t type(attr):\t{type(attr)}")
-                                # print("isnumberic(attr): {}".format(attr.isnumeric()))
-                                # print(f"**************\n\n{attr_type}\n\n***************")
-                                # if HBNBCommand.is_integer(attr):
-                                #     print("____________Is INTEGER___________")
-                                #     setattr(storage.all()[key], attr_name, int(attr_value))
-                                # elif HBNBCommand.is_float(attr):
-                                #     print("____________Is FLOAT___________")
-                                #     setattr(storage.all()[key], attr_name, float(attr_value))
-                                # else:
-                                #     print("____________Is STR___________")
-                                #     setattr(storage.all()[key], attr_name, str(attr_value))
-                                    
-                                # if attr_type == "int":
-                                #     setattr(storage.all()[key], attr_name, int(attr_value))
-                                # elif attr_type == "str":
-                                #     setattr(storage.all()[key], attr_name,
-                                #             str(attr_value))
-                                # elif attr_type == "float":
-                                #     setattr(storage.all()[key], attr_name,
-                                #             float(attr_value))
-                                
+                                    str(attr_value))
                     storage.save()
                     pass
             else:
@@ -345,7 +329,7 @@ updating attribute"""
     def is_integer(string):
         """Method to check if string is an integer"""
         s = str(string)
-        return s.isdigit() # or (s[0] == '-' and s[1:].isdigit())
+        return s.isdigit()  # or (s[0] == '-' and s[1:].isdigit())
 
     @staticmethod
     def is_float(s):
