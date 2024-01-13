@@ -117,3 +117,6 @@ another"""
         self.a1.save()
         updated_new = self.a1.updated_at
         self.assertNotEqual(update_old, updated_new)
+
+if __name__ == "__main__":
+    unittest.main()

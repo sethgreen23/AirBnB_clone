@@ -171,3 +171,6 @@ class TestFileStorageClass(unittest.TestCase):
         """Tests save() with None as argument"""
         with self.assertRaises(TypeError):
             self.f1.save(None)
+
+if __name__ == "__main__":
+    unittest.main()
