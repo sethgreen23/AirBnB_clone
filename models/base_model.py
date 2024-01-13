@@ -23,7 +23,7 @@ class BaseModel:
     def __init__(self, *args, **kwrags):
         """Init function of the BaseModel class"""
         str_format = "%Y-%m-%dT%H:%M:%S.%f"
-        if kwrags and len(kwrags) > 1:
+        if kwrags and len(kwrags) >= 1:
             for key, value in kwrags.items():
                 if (key != "__class__"):
                     if key in ["created_at", "updated_at"]:
