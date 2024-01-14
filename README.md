@@ -14,3 +14,11 @@ The following are some of the features of the ALX Airbnb Console Project:
 4. Generate reports and statistics on listings and bookings
 5. Interactive and user-friendly interface
 ```
+
+## Requirements
+```bash
+0. Python 3.8
+1. pip package manager
+2. Git version control system
+3. Unittest Module for testing the application functionalities
+```
