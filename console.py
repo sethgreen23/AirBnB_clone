@@ -2,11 +2,11 @@
 """Module for the console"""
 
 
-import cmd
-import sys
+from models import storage
 from models.base_model import BaseModel
 from models.user import User
-from models import storage
+import cmd
+import sys
 
 
 class HBNBCommand(cmd.Cmd):

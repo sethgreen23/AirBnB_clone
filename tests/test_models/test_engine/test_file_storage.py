@@ -86,6 +86,36 @@ class TestFileStorageClass(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.f1.all(None)
 
+    def test_all_argument_str(self):
+        """Tests all() instance method with string as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.all("None")
+
+    def test_all_argument_list(self):
+        """Tests all() instance method with list as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.all(["town"])
+
+    def test_all_argument_int(self):
+        """Tests all() instance method with integer as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.all(1994)
+
+    def test_all_argument_float(self):
+        """Tests all() instance method with float as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.all(19.94)
+
+    def test_all_argument_tuple(self):
+        """Tests all() instance method with tuple as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.all((19, 94))
+
+    def test_all_argument_dict(self):
+        """Tests all() instance method with dictionary as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.all({})
+
     def test_new_with_all_classes(self):
         """Tests new() instance method with all classes"""
         self.f1.new(self.b1)
@@ -208,10 +238,40 @@ class TestFileStorageClass(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.f1.reload(None)
 
-    def test_reload_with_save(self):
+    def test_save_None_argument(self):
         """Tests save() with None as argument"""
         with self.assertRaises(TypeError):
             self.f1.save(None)
+
+    def test_save_argument_str(self):
+        """Tests save() instance method with string as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.save("None")
+
+    def test_save_argument_list(self):
+        """Tests save() instance method with list as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.save(["town"])
+
+    def test_save_argument_int(self):
+        """Tests save() instance method with integer as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.save(1994)
+
+    def test_save_argument_float(self):
+        """Tests save() instance method with float as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.save(19.94)
+
+    def test_save_argument_tuple(self):
+        """Tests save() instance method with tuple as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.save((19, 94))
+
+    def test_save_argument_dict(self):
+        """Tests save() instance method with dictionary as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.save({})
 
 
 if __name__ == "__main__":

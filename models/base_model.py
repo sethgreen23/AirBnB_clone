@@ -5,9 +5,9 @@
 """
 
 
-from uuid import uuid4
 from datetime import datetime
 from models import storage
+from uuid import uuid4
 
 
 class BaseModel:
