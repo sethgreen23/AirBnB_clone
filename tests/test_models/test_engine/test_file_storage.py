@@ -243,6 +243,46 @@ class TestFileStorageClass(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.f1.reload(None)
 
+    def test_reload_multiple_args(self):
+        """Tests reload() with multiple as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.reload(None, None)
+            self.f1.reload("None", "None")
+            self.f1.reload(12, 32)
+            self.f1.reload(1.2, 4.5)
+            self.f1.reload((1, 2), (3, 5))
+            self.f1.reload({}, {})
+
+    def test_new_multiple_args(self):
+        """Tests new() with multiple as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.new(None, None)
+            self.f1.new("None", "None")
+            self.f1.new(12, 32)
+            self.f1.new(1.2, 4.5)
+            self.f1.new((1, 2), (3, 5))
+            self.f1.new({}, {})
+
+    def test_all_multiple_args(self):
+        """Tests all() with multiple as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.all(None, None)
+            self.f1.all("None", "None")
+            self.f1.all(12, 32)
+            self.f1.all(1.2, 4.5)
+            self.f1.all((1, 2), (3, 5))
+            self.f1.all({}, {})
+
+    def test_save_multiple_args(self):
+        """Tests save() with multiple as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.save(None, None)
+            self.f1.save("None", "None")
+            self.f1.save(12, 32)
+            self.f1.save(1.2, 4.5)
+            self.f1.save((1, 2), (3, 5))
+            self.f1.save({}, {})
+
     def test_save_None_argument(self):
         """Tests save() with None as argument"""
         with self.assertRaises(TypeError):
@@ -312,6 +352,18 @@ class TestFileStorageClass(unittest.TestCase):
         """Tests reload() instance method with dictionary as argument"""
         with self.assertRaises(TypeError):
             self.f1.reload({})
+
+    def test_reload_file_missing(self):
+        """Tests reload with missing file"""
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+
+        try:
+            storage.reload()
+        except Exception as fne:
+            self.fail()
 
 
 if __name__ == "__main__":
