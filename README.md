@@ -25,3 +25,9 @@ The following are some of the features of the ALX Airbnb Console Project:
 
 ## Installation
 To install the application you need to clone the repo.
+
+## Usage
+To execute the application you need to execute ```bash console.py```
+```bash
+./console.py
+```
