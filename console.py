@@ -18,10 +18,7 @@ class HBNBCommand(cmd.Cmd):
                    "Review"]
 
     def do_show(self, args):
-        """
-        Print the string representaion of an instance based on the class
-        name and id
-        """
+        """Print the string representaion of an instance"""
         class_representation = ""
         go_on = HBNBCommand.validate_args(args)
         if go_on:
@@ -37,9 +34,7 @@ class HBNBCommand(cmd.Cmd):
         print(class_representation)
 
     def do_all(self, args):
-        """Prints all string representation of all instances based on
-        or not the class name
-        """
+        """Prints all string representation of all instances"""
         args_exist = True
         args_list = args.split(" ")
         if args_list[0] != "" and len(args_list) >= 1:
@@ -73,9 +68,8 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_create(self, args):
-        """Create new instance of BaseModel,
-            save it and print the id
-        """
+        """Create new instance of and prints the id"""
+
         from models.base_model import BaseModel
         from models.amenity import Amenity
         from models.city import City
@@ -105,9 +99,8 @@ class HBNBCommand(cmd.Cmd):
         print(obj.id)
 
     def do_update(self, args):
-        """Updates an instance based on the class name and id by adding or
-        updating attribute
-        """
+        """Updates an instance based on the class name and id"""
+
         self.cmdName = "update"
 
         go_on = HBNBCommand.validate_args(args, self.cmdName)
