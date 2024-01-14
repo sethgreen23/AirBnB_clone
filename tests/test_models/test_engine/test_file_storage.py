@@ -49,6 +49,11 @@ class TestFileStorageClass(unittest.TestCase):
         except FileNotFoundError:
             pass
 
+    def test_None_file_storage(self):
+        """Test by passing None to filestorage"""
+        with self.assertRaises(TypeError):
+            FileStorage(None)
+
     def test_attributes(self):
         """Test attributes for class FileStorage"""
         filename = "file.json"
