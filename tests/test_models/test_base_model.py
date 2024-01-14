@@ -25,6 +25,78 @@ class TestBaseModel(unittest.TestCase):
         del self.b1
         del self.b2
 
+    def test_init_None(self):
+        """Test __init__ with None argument"""
+        self.b3 = BaseModel(None)
+        self.b3.save()
+        result = self.b3.to_dict()
+
+        self.assertTrue("updated_at" in result.keys())
+        self.assertTrue("id" in result.keys())
+        self.assertTrue("__class__" in result.keys())
+        self.assertTrue("created_at" in result.keys())
+        self.assertEqual(len(result), 4)
+
+    def test_init_list(self):
+        """Test __init__ with list argument"""
+        self.b3 = BaseModel(["Dog", 12, 33.3, (1, 2), {"first_name": "Seth"}])
+        self.b3.save()
+        result = self.b3.to_dict()
+
+        self.assertTrue("updated_at" in result.keys())
+        self.assertTrue("id" in result.keys())
+        self.assertTrue("__class__" in result.keys())
+        self.assertTrue("created_at" in result.keys())
+        self.assertEqual(len(result), 4)
+
+    def test_init_str(self):
+        """Test __init__ with str argument"""
+        self.b3 = BaseModel("Dog")
+        self.b3.save()
+        result = self.b3.to_dict()
+
+        self.assertTrue("updated_at" in result.keys())
+        self.assertTrue("id" in result.keys())
+        self.assertTrue("__class__" in result.keys())
+        self.assertTrue("created_at" in result.keys())
+        self.assertEqual(len(result), 4)
+
+    def test_init_int(self):
+        """Test __init__ with int argument"""
+        self.b3 = BaseModel(33)
+        self.b3.save()
+        result = self.b3.to_dict()
+
+        self.assertTrue("updated_at" in result.keys())
+        self.assertTrue("id" in result.keys())
+        self.assertTrue("__class__" in result.keys())
+        self.assertTrue("created_at" in result.keys())
+        self.assertEqual(len(result), 4)
+
+    def test_init_tuple(self):
+        """Test __init__ with tuple argument"""
+        self.b3 = BaseModel((33, 32))
+        self.b3.save()
+        result = self.b3.to_dict()
+
+        self.assertTrue("updated_at" in result.keys())
+        self.assertTrue("id" in result.keys())
+        self.assertTrue("__class__" in result.keys())
+        self.assertTrue("created_at" in result.keys())
+        self.assertEqual(len(result), 4)
+
+    def test_init_float(self):
+        """Test __init__ with list argument"""
+        self.b3 = BaseModel(33.3)
+        self.b3.save()
+        result = self.b3.to_dict()
+
+        self.assertTrue("updated_at" in result.keys())
+        self.assertTrue("id" in result.keys())
+        self.assertTrue("__class__" in result.keys())
+        self.assertTrue("created_at" in result.keys())
+        self.assertEqual(len(result), 4)
+
     def test_datetime_attr(self):
         """Test datetime attributes"""
         self.assertIsInstance(self.b1.created_at, datetime)
@@ -53,10 +125,16 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(self.b1.created_at, self.b2.created_at)
         self.assertNotEqual(self.b1.updated_at, self.b2.updated_at)
 
-    def test_save(self):
-        """Testing save"""
-        self.b1.save()
-        self.assertIsInstance(self.b1.updated_at, datetime)
+    def test_save_updated_at(self):
+        """Testing save with created_at and updated_at"""
+        self.b4 = BaseModel()
+        updated_old = self.b4.updated_at
+        created = self.b4.created_at
+        time.sleep(0.1)
+        self.b4.save()
+        updated_new = self.b4.updated_at
+        self.assertNotEqual(updated_old, updated_new)
+        self.assertEqual(self.b4.created_at, created)
 
     def test_to_dict(self):
         """Testing to_dict"""
@@ -98,6 +176,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(self.b1.my_number, b1_clone.my_number)
         self.assertEqual(str(self.b1.to_dict()), str(b1_clone.to_dict()))
         self.assertIsInstance(b1_clone, BaseModel)
+        self.assertIsNot(b1_clone, self.b1)
 
     def test_to_dict_id(self):
         """Test to_dict method from BaseModel"""
