@@ -38,7 +38,7 @@ To execute the application you need to execute ```bash console.py```
 
 ## Contributing
 
-Pull requests are welcome an. For major changes, please open an issue first
+Pull requests are welcome any. For major changes, please open an issue first
 to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
