@@ -269,9 +269,44 @@ class TestFileStorageClass(unittest.TestCase):
             self.f1.save((19, 94))
 
     def test_save_argument_dict(self):
-        """Tests save() instance method with dictionary as argument"""
+        """Tests reload() instance method with dictionary as argument"""
         with self.assertRaises(TypeError):
-            self.f1.save({})
+            self.f1.reload({})
+
+    def test_reload_None_argument(self):
+        """Tests reload() with None as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.reload(None)
+
+    def test_reload_argument_str(self):
+        """Tests reload() instance method with string as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.reload("None")
+
+    def test_reload_argument_list(self):
+        """Tests reload() instance method with list as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.reload(["town"])
+
+    def test_reload_argument_int(self):
+        """Tests reload() instance method with integer as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.reload(1994)
+
+    def test_reload_argument_float(self):
+        """Tests reload() instance method with float as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.reload(19.94)
+
+    def test_reload_argument_tuple(self):
+        """Tests reload() instance method with tuple as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.reload((19, 94))
+
+    def test_reload_argument_dict(self):
+        """Tests reload() instance method with dictionary as argument"""
+        with self.assertRaises(TypeError):
+            self.f1.reload({})
 
 
 if __name__ == "__main__":
