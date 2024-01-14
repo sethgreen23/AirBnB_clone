@@ -2,13 +2,13 @@
 """Unittest for class Amenity"""
 
 
-import unittest
+from datetime import datetime
+from models import storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
-from models import storage
-from datetime import datetime
 import os
 import time
+import unittest
 
 
 class TestAmenityClass(unittest.TestCase):

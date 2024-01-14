@@ -2,17 +2,17 @@
 """Unittest for FileStorage Class"""
 
 
-import unittest
-from models.engine.file_storage import FileStorage
-from models.base_model import BaseModel
 from models import storage
-import os
-from models.user import User
-from models.state import State
-from models.place import Place
-from models.city import City
 from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.engine.file_storage import FileStorage
+from models.place import Place
 from models.review import Review
+from models.state import State
+from models.user import User
+import os
+import unittest
 
 
 class TestFileStorageClass(unittest.TestCase):
@@ -51,7 +51,6 @@ class TestFileStorageClass(unittest.TestCase):
 
     def test_attributes(self):
         """Test attributes for class FileStorage"""
-        FileStorage._FileStorage__objects = {}
         filename = "file.json"
         try:  # Delete the file
             os.remove(filename)
@@ -60,12 +59,19 @@ class TestFileStorageClass(unittest.TestCase):
         self.assertTrue(hasattr(FileStorage, "_FileStorage__file_path"))
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
 
+    def test_initial_values(self):
+        """Test initial values for FileStorage class attributes"""
+        FileStorage._FileStorage__objects = {}
+        self.assertEqual(FileStorage._FileStorage__file_path, "file.json")
+        self.assertEqual(FileStorage._FileStorage__objects, {})
+
     def test_all_empty(self):
         """Tests all() instance method when __objects is empty"""
+        FileStorage._FileStorage__objects = {}
         result = self.f1.all()
         self.assertIsNotNone(result)
         self.assertIsInstance(result, dict)
-        # self.assertEqual(len(result), 1)
+        self.assertEqual(self.f1.all(), {})
 
     def test_all_none_empty(self):
         """Tests all() instance method"""
@@ -75,7 +81,7 @@ class TestFileStorageClass(unittest.TestCase):
         self.assertNotEqual(result, {})
         self.assertIs(result, self.f1._FileStorage__objects)
 
-    def test_reload_with_all(self):
+    def test_all_with_None(self):
         """Tests all() with None as argument"""
         with self.assertRaises(TypeError):
             self.f1.all(None)
@@ -103,6 +109,41 @@ class TestFileStorageClass(unittest.TestCase):
                       self.f1.all().keys())
         self.assertIn(f"{self.p1.__class__.__name__}.{self.p1.id}",
                       self.f1.all().keys())
+
+    def test_new_None_argument(self):
+        """Tests new() instance method with None as argument"""
+        with self.assertRaises(AttributeError):
+            self.f1.new(None)
+
+    def test_new_argument_str(self):
+        """Tests new() instance method with string as argument"""
+        with self.assertRaises(AttributeError):
+            self.f1.new("None")
+
+    def test_new_argument_list(self):
+        """Tests new() instance method with list as argument"""
+        with self.assertRaises(AttributeError):
+            self.f1.new(["town"])
+
+    def test_new_argument_int(self):
+        """Tests new() instance method with integer as argument"""
+        with self.assertRaises(AttributeError):
+            self.f1.new(1994)
+
+    def test_new_argument_float(self):
+        """Tests new() instance method with float as argument"""
+        with self.assertRaises(AttributeError):
+            self.f1.new(19.94)
+
+    def test_new_argument_tuple(self):
+        """Tests new() instance method with tuple as argument"""
+        with self.assertRaises(AttributeError):
+            self.f1.new((19, 94))
+
+    def test_new_argument_dict(self):
+        """Tests new() instance method with dictionary as argument"""
+        with self.assertRaises(AttributeError):
+            self.f1.new({})
 
     def test_save(self):
         """Tests save() instance method with all classes"""

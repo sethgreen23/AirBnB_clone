@@ -2,13 +2,13 @@
 """Unittest for class State"""
 
 
-import unittest
-from models.state import State
-from models.base_model import BaseModel
-from models import storage
 from datetime import datetime
+from models import storage
+from models.base_model import BaseModel
+from models.state import State
 import os
 import time
+import unittest
 
 
 class TestStateClass(unittest.TestCase):

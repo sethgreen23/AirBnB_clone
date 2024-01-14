@@ -2,13 +2,13 @@
 """Unittest for class City"""
 
 
-import unittest
-from models.city import City
-from models.base_model import BaseModel
-from models import storage
 from datetime import datetime
+from models import storage
+from models.base_model import BaseModel
+from models.city import City
 import os
 import time
+import unittest
 
 
 class TestCityClass(unittest.TestCase):
@@ -123,3 +123,7 @@ another"""
         self.c1.save()
         updated_new = self.c1.updated_at
         self.assertNotEqual(update_old, updated_new)
+
+
+if __name__ == "__main__":
+    unittest.main()

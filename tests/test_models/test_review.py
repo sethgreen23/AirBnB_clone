@@ -2,13 +2,13 @@
 """Unittest for class Review"""
 
 
-import unittest
-from models.review import Review
-from models.base_model import BaseModel
-from models import storage
 from datetime import datetime
+from models import storage
+from models.base_model import BaseModel
+from models.review import Review
 import os
 import time
+import unittest
 
 
 class TestReviewClass(unittest.TestCase):

@@ -2,13 +2,13 @@
 """Unittest for class User"""
 
 
-import unittest
-from models.user import User
-from models.base_model import BaseModel
-from models import storage
 from datetime import datetime
+from models import storage
+from models.base_model import BaseModel
+from models.user import User
 import os
 import time
+import unittest
 
 
 class TestUserClass(unittest.TestCase):
