@@ -31,3 +31,7 @@ To execute the application you need to execute ```bash console.py```
 ```bash
 ./console.py
 ```
+
+## Author
+- [@NebiyouBelaineh](https://github.com/NebiyouBelaineh)
+- [@sethgreen23](https://github.com/sethgreen23)
