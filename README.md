@@ -22,3 +22,6 @@ The following are some of the features of the ALX Airbnb Console Project:
 2. Git version control system
 3. Unittest Module for testing the application functionalities
 ```
+
+## Installation
+To install the application you need to clone the repo.
