@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+import json
 import os
 import unittest
 
@@ -353,16 +354,104 @@ class TestFileStorageClass(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.f1.reload({})
 
+    def test_initialization_without_args(self):
+        """Tests for class FileStorage initialization without args"""
+        with self.assertRaises(TypeError):
+            FileStorage(None)
+            FileStorage("Test")
+
+    def test_file_path(self):
+        """Tets for the type of the class attribute file_path"""
+
+        file_path = FileStorage._FileStorage__file_path
+        self.assertEqual(type(file_path), str)
+        self.assertFalse(hasattr(self.f2, '__file_path'))
+        self.assertEqual(file_path, "file.json")
+
+    def test_objects(self):
+        """Tets for class attribute objects"""
+
+        objects = FileStorage._FileStorage__objects
+        result = self.f2.all()
+        self.assertEqual(type(objects), dict)
+        self.assertFalse(hasattr(self.f2, '__objects'))
+        self.assertEqual(result, objects)
+
+    def test_all(self):
+        """Defines all test cases for the intance method all()"""
+        objects = FileStorage._FileStorage__objects
+        result = self.f2.all()
+        self.assertEqual(type(result), dict)
+        self.assertEqual(result, objects)
+
+    def test_all_returns_empty_dict(self):
+        """Tests all returns empty dictionary"""
+        FileStorage._FileStorage__objects = {}
+        result = self.f2.all()
+        self.assertEqual(result, {})
+
+    def test_all_args(self):
+        """Defines tests for all with args"""
+        with self.assertRaises(TypeError):
+            self.f2.all("test")
+            self.f2.all("test", "test")
+            self.f2.all(None)
+
+    def test_new(self):
+        """Tests new adds object to the objects attribute"""
+
+        self.f2.new(self.b1)
+        objects = FileStorage._FileStorage__objects
+        self.assertIn("BaseModel." + self.b1.id, objects.keys())
+        self.assertIn(self.b1, objects.values())
+
+    def test_new_arg(self):
+        """Tests new raises type error with wrong args"""
+        with self.assertRaises(TypeError):
+            self.f2.new()
+
+    def test_new_invalid_args(self):
+        """Tests for invalid args used with new method of class FileStorage"""
+        with self.assertRaises(AttributeError):
+            self.f2.new("")
+            self.f2.new(None, None)
+
+    def test_save(self):
+        """Defines all edge case tests for the method save()"""
+
+        self.f2.new(self.b1)
+
+        self.f2.save()
+        bm_key = "BaseModel." + self.b1.id
+
+        with open("file.json", "r") as f:
+            data = json.load(f)
+        self.assertIn(bm_key, data.keys())
+
+    def test_save_args(self):
+        """Tests whether save accepts arguments"""
+
+        with self.assertRaises(TypeError):
+            self.f2.save("Test")
+            self.f2.save("Test", "Test")
+            self.f2.save(None)
+
+    def test_reload_args(self):
+        """Tests reload args"""
+        with self.assertRaises(TypeError):
+            self.f2.reload("")
+            self.f2.reload(None)
+            self.f2.reload(int)
+
     def test_reload_file_missing(self):
-        """Tests reload with missing file"""
+        """Tests reload when file is missing"""
         try:
             os.remove("file.json")
-        except FileNotFoundError:
+        except (FileNotFoundError):
             pass
-
         try:
-            storage.reload()
-        except Exception as fne:
+            self.f2.reload()
+        except Exception as e:
             self.fail()
 
 
