@@ -5,15 +5,17 @@ COMMON FILE
 */
 
 body {
+	min-height: 100vh;
 	margin: 0;
 	padding: 0;
-	height: 100%;
 	font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 14px;
 	color: #484848;
+	position: relative; /*Important to keep the footer at the bottom*/
 }
 
 .container {
-	max-width: 1000px;
-	margin: 30px auto;
+    max-width: 1000px;
+    margin: 30px auto 0 auto;
+    padding-bottom: 80px;
 }
