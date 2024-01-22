@@ -17,7 +17,7 @@ ul {
 	position: relative
 }
 
-button {
+.filters button {
 	font-size: 18px;
 	background-color: #FF5A5F;
 	color: #FFFFFF;
@@ -101,4 +101,31 @@ button {
 	display: block;
 	opacity: 1;
 	transition: all 0.33s ease .2s;
+}
+
+
+
+@media only screen and (max-width: 776px){
+	.filters {
+		display:flex;
+		flex-direction: column;
+		height: auto;
+		width: 90%;
+
+	}
+	.filters button {
+		position: relative;
+		top:0;
+		right:0;
+		transform: translate(0%, 0%);
+		margin-top: 20px;
+		border-top-right-radius: 0;
+		border-top-left-radius: 0;
+	}
+
+	.filters .locations,
+	.filters .amenities,
+	.filters button{
+		width: 100%;
+	}
 }

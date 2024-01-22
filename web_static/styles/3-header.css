@@ -6,7 +6,7 @@ HEADER FILE
 
 header {
 	height: 70px;
-	width: 100%;
+	max-width: 100%;
 	border-bottom: 1px solid #CCCCCC;
 	background-image: url("../images/logo.png");
 	background-position: 0px 50%;
