@@ -1,0 +1,15 @@
+/*
+#################################
+FOOTER FILE
+#################################
+*/
+
+footer {
+    height: 60px;
+    width: 100%;
+    text-align: center;
+    line-height: 60px;
+    border-top: 1px solid #CCCCCC;
+	position: absolute;
+	bottom: 0;
+}
