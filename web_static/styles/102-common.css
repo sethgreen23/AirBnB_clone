@@ -1,0 +1,38 @@
+/*
+#################################
+COMMON FILE
+#################################
+*/
+*::after,
+*::before,
+*{
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	color: #484848;
+	position: relative; /*Important to keep the footer at the bottom*/
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto 0 auto;
+    padding-bottom: 80px;
+}
+
+@media only screen and (max-width: 1050px){
+	.container{
+		width: 100%;
+		display:flex;
+		flex-direction: column;
+		align-items: center;
+		padding-right: 30px;
+		padding-left: 30px;
+	}
+}
